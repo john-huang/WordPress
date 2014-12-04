@@ -1244,6 +1244,16 @@ table.links-table {
 /* DFW 2
 -------------------------------------------------------------- */
 
+#wp-content-wrap .mce-wp-dfw,
+#qt_content_dfw {
+	display: none;
+}
+
+.wp-editor-expand #wp-content-wrap .mce-wp-dfw,
+.wp-editor-expand #qt_content_dfw {
+	display: inline-block;
+}
+
 .focus-on .wrap > h2,
 .focus-on #wpfooter,
 .focus-on .postbox-container,
@@ -1283,6 +1293,10 @@ table.links-table {
 	transition-property: opacity;
 	-webkit-transition-timing-function: ease-in-out;
 	transition-timing-function: ease-in-out;
+}
+
+.focus-off #wp-toolbar {
+	-webkit-transform: translate(0, 0);
 }
 
 .focus-on #adminmenuback,

@@ -250,6 +250,10 @@ final class _WP_Editors {
 		self::editor_settings($editor_id, $set);
 	}
 
+	/**
+	 * @param string $editor_id
+	 * @param array  $set
+	 */
 	public static function editor_settings($editor_id, $set) {
 		$first_run = false;
 
@@ -486,6 +490,15 @@ final class _WP_Editors {
 						],
 						strikethrough: {inline: 'del'}
 					}",
+					'block_formats' =>
+						'Paragraph=p;' .
+						'Pre=pre;' .
+						'Heading 1=h1;' .
+						'Heading 2=h2;' .
+						'Heading 3=h3;' .
+						'Heading 4=h4;' .
+						'Heading 5=h5;' .
+						'Heading 6=h6',
 					'relative_urls' => false,
 					'remove_script_host' => false,
 					'convert_urls' => false,
@@ -755,8 +768,8 @@ final class _WP_Editors {
 	 * Can be used directly (_WP_Editors::wp_mce_translation()) by passing the same locale as set in the TinyMCE init object.
 	 *
 	 * @param string $mce_locale The locale used for the editor.
-	 * @param bool $json_only optional Whether to include the Javascript calls to tinymce.addI18n() and tinymce.ScriptLoader.markDone().
-	 * @return The translation object, JSON encoded.
+	 * @param bool $json_only optional Whether to include the JavaScript calls to tinymce.addI18n() and tinymce.ScriptLoader.markDone().
+	 * @return string Translation object, JSON encoded.
 	 */
 	public static function wp_mce_translation( $mce_locale = '', $json_only = false ) {
 
@@ -877,6 +890,11 @@ final class _WP_Editors {
 			'Insert/edit link' => __( 'Insert/edit link' ),
 			'Remove link' => __( 'Remove link' ),
 
+			'Color' => __( 'Color' ),
+			'Custom color' => __( 'Custom color' ),
+			'Custom...' => _x( 'Custom...', 'label for custom color' ),
+			'No color' => __( 'No color' ),
+
 			// Spelling, search/replace plugins
 			'Could not find the specified string.' => __( 'Could not find the specified string.' ),
 			'Replace' => _x( 'Replace', 'find/replace' ),
@@ -893,6 +911,7 @@ final class _WP_Editors {
 			'Finish' => _x( 'Finish', 'spellcheck' ),
 			'Ignore all' => _x( 'Ignore all', 'spellcheck' ),
 			'Ignore' => _x( 'Ignore', 'spellcheck' ),
+			'Add to Dictionary' => __( 'Add to Dictionary' ),
 
 			// TinyMCE tables
 			'Insert table' => __( 'Insert table' ),
@@ -900,6 +919,7 @@ final class _WP_Editors {
 			'Table properties' => __( 'Table properties' ),
 			'Row properties' => __( 'Table row properties' ),
 			'Cell properties' => __( 'Table cell properties' ),
+			'Border color' => __( 'Border color' ),
 
 			'Row' => __( 'Row' ),
 			'Rows' => __( 'Rows' ),
@@ -928,10 +948,15 @@ final class _WP_Editors {
 			'Width' => __( 'Width' ),
 			'Caption' => __( 'Caption' ),
 			'Alignment' => __( 'Alignment' ),
+			'H Align' => _x( 'H Align', 'horizontal table cell alignment' ),
 			'Left' => __( 'Left' ),
 			'Center' => __( 'Center' ),
 			'Right' => __( 'Right' ),
 			'None' => _x( 'None', 'table cell alignment attribute' ),
+			'V Align' => _x( 'V Align', 'vertical table cell alignment' ),
+			'Top' => __( 'Top' ),
+			'Middle' => __( 'Middle' ),
+			'Bottom' => __( 'Bottom' ),
 
 			'Row group' => __( 'Row group' ),
 			'Column group' => __( 'Column group' ),
@@ -1316,7 +1341,7 @@ final class _WP_Editors {
 	 * @since 3.1.0
 	 *
 	 * @param array $args Optional. Accepts 'pagenum' and 's' (search) arguments.
-	 * @return array Results.
+	 * @return false|array Results.
 	 */
 	public static function wp_link_query( $args = array() ) {
 		$pts = get_post_types( array( 'public' => true ), 'objects' );
